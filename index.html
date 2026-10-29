@@ -1,28 +1,32 @@
-<title>幻</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600&display=swap">
+<title>神之域 · Realm of the Gods</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@200;300&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@200;300;400;600&display=swap">
 <style>
 :root {
-  --bg: #0a0b10; --bg2: #151823; --panel: rgba(18, 22, 36, 0.55);
-  --fg: #d6dbea; --dim: #8b94a7; --faint: #555e73;
-  --lapis: #2a5cd8; --wing: #7fd8ff; --gold: #c9a961; --gold-soft: rgba(201, 169, 97, 0.16);
-  --seal: #a02c22; --hairline: rgba(139, 148, 167, 0.16);
+  --bg: #100c07; --bg2: #1c160e; --panel: rgba(30, 24, 14, 0.55);
+  --fg: #ece2cc; --dim: #a89874; --faint: #6f6248;
+  --lapis: #2a5cd8; --wing: #7fd8ff; --gold: #d9b56a; --gold-deep: #8a6d35; --gold-soft: rgba(217, 181, 106, 0.18);
+  --seal: #a02c22; --hairline: rgba(168, 152, 116, 0.18);
   --font-hand: "Ma Shan Zheng", "Kaiti SC", "STKaiti", "KaiTi", serif;
   --font-body: "Noto Serif SC", "Songti SC", "SimSun", serif;
   color-scheme: dark;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: rgba(217, 181, 106, 0.28); color: var(--fg); }
+:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
 body {
-  background: linear-gradient(180deg, #0c0e15 0%, var(--bg) 100%);
+  background:
+    radial-gradient(ellipse 95% 60% at 50% -10%, rgba(244, 222, 150, 0.2), transparent 65%),
+    linear-gradient(180deg, #1a1409 0%, var(--bg) 100%);
   background-attachment: fixed;
   color: var(--fg); font-family: var(--font-body); font-weight: 300;
   padding-left: max(18px, env(safe-area-inset-left, 0px));
   padding-right: max(18px, env(safe-area-inset-right, 0px));
   min-height: 100vh; overflow-x: hidden;
 }
-/* 晕影：四周暗角，展厅的昏暗 */
+/* 晕影：四周暗角，殿堂的幽暗 */
 body::after {
   content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(ellipse 90% 70% at 50% 38%, transparent 50%, rgba(2, 3, 6, 0.55) 100%);
+  background: radial-gradient(ellipse 90% 70% at 50% 38%, transparent 50%, rgba(6, 4, 1, 0.6) 100%);
 }
 /* 胶片颗粒 */
 body::before {
@@ -32,36 +36,105 @@ body::before {
 }
 #air { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 #flight { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-.page { position: relative; z-index: 1; max-width: 72em; margin: 0 auto; padding-block: 7vh 9vh; }
+/* 天光：自穹顶洒落的光柱 */
+.rays {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-conic-gradient(from 180deg at 50% -80%,
+              rgba(255, 240, 196, 0.075) 0deg 2.4deg, transparent 2.4deg 10deg);
+  -webkit-mask-image: radial-gradient(ellipse 85% 60% at 50% 0%, rgba(0,0,0,0.85), transparent 70%);
+  mask-image: radial-gradient(ellipse 85% 60% at 50% 0%, rgba(0,0,0,0.85), transparent 70%);
+  transform-origin: 50% -80%;
+  animation: raysway 22s ease-in-out infinite;
+}
+@keyframes raysway {
+  0%, 100% { opacity: 0.5; transform: rotate(-0.6deg); }
+  50% { opacity: 0.8; transform: rotate(0.6deg); }
+}
+.page { position: relative; z-index: 1; max-width: 66em; margin: 0 auto; padding-block: 9vh 11vh; }
 
 /* ================= 开幕 ================= */
-header { text-align: center; padding-block: 4vh 2vh; }
+header { text-align: center; padding-block: 6vh 2vh; }
+header .eyebrow {
+  color: var(--faint); font-size: 0.68rem;
+  letter-spacing: 0.55em; text-indent: 0.55em; margin-bottom: 3em;
+}
 h1 {
-  font-family: var(--font-hand); font-weight: 400;
-  font-size: clamp(3rem, 9vw, 4.8rem); letter-spacing: 0.22em; text-indent: 0.22em;
+  font-family: var(--font-body); font-weight: 200;
+  font-size: clamp(3.2rem, 10vw, 5.6rem); letter-spacing: 0.3em; text-indent: 0.3em;
+  text-shadow: 0 0 34px rgba(217, 181, 106, 0.22);
   animation: title-in 1.6s ease both;
 }
 @keyframes title-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-header .sub { color: var(--dim); font-size: 0.85rem; letter-spacing: 0.9em; text-indent: 0.9em; margin-top: 1.6em; }
+header .h1-en {
+  font-family: "Cormorant Garamond", var(--font-body); font-weight: 300;
+  color: var(--dim); font-size: clamp(0.78rem, 1.6vw, 0.95rem);
+  letter-spacing: 0.55em; text-indent: 0.55em; margin-top: 2em;
+  animation: title-in 1.6s 0.35s ease both;
+}
+/* ================= 中英双语伴随行 ================= */
+.en { font-family: "Cormorant Garamond", var(--font-body); font-weight: 300; }
+header .eyebrow .en { display: block; margin-top: 0.8em; font-size: 0.62rem; }
+header .sub .en {
+  display: block; margin-top: 0.8em; font-size: 0.72rem; font-style: italic;
+  letter-spacing: 0.3em; text-indent: 0.3em; color: var(--faint);
+}
+.drift-line .en {
+  display: block; margin-top: 0.8em; font-size: 0.74rem; font-style: italic;
+  letter-spacing: 0.22em; text-indent: 0.22em; color: var(--faint);
+}
+.featured-label .plate-no .en { display: block; margin-top: 0.8em; font-size: 0.58rem; }
+.featured-label .fm .en {
+  display: block; margin-top: 0.6em; font-size: 0.78rem; font-style: italic;
+  letter-spacing: 0.24em; text-indent: 0.24em; color: var(--dim);
+}
+.featured-label .t .en {
+  display: block; margin-top: 0.5em; font-size: 0.78rem;
+  letter-spacing: 0.28em; text-indent: 0.28em; color: var(--dim);
+}
+.group-label .name-en {
+  font-family: "Cormorant Garamond", var(--font-body); font-weight: 300;
+  font-size: 0.72rem; letter-spacing: 0.28em; color: var(--dim); margin-top: -0.6em;
+}
+.label .fm .en {
+  display: block; margin-top: 0.35em; font-size: 0.78rem; font-style: italic;
+  letter-spacing: 0.16em;
+}
+.label .t .en { display: block; margin-top: 0.35em; font-size: 0.74rem; letter-spacing: 0.2em; color: var(--dim); }
+@keyframes title-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+header .sub {
+  font-family: var(--font-hand); color: var(--dim); font-size: 1.05rem;
+  letter-spacing: 0.45em; text-indent: 0.45em; margin-top: 2.6em;
+}
 header .rule {
-  width: 5em; height: 1px; margin: 3em auto 0;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  width: 16em; height: 1px; margin: 3.2em auto 0; position: relative;
+  background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+}
+header .rule::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 6px; height: 6px; transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(217, 181, 106, 0.8);
 }
 
 /* ================= 主展品 ================= */
 .featured { margin: 7vh auto 4vh; max-width: 34em; }
 .frame {
-  position: relative; padding: 0.9em; cursor: zoom-in;
-  background: linear-gradient(160deg, rgba(24, 33, 66, 0.7), rgba(12, 17, 38, 0.85));
-  border: 1px solid var(--hairline);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(42, 92, 216, 0.12);
+  position: relative; padding: 1.3em; cursor: zoom-in;
+  background: linear-gradient(160deg, rgba(44, 34, 16, 0.72), rgba(26, 19, 9, 0.86));
+  border: 1px solid rgba(217, 181, 106, 0.22);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 175, 94, 0.16);
   transition: box-shadow 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
   animation: rise 1.4s 0.3s ease both;
 }
 .frame:hover {
-  border-color: rgba(201, 169, 97, 0.45);
-  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.6), 0 0 80px rgba(42, 92, 216, 0.2);
+  border-color: rgba(217, 181, 106, 0.55);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.65), 0 0 80px rgba(217, 181, 106, 0.3);
   transform: translateY(-3px);
+}
+/* 龛内鎏金细线（博物馆画框的内衬 fillet） */
+.frame::after, .frame-small::after {
+  content: ""; position: absolute; inset: 0.42em; pointer-events: none;
+  border: 1px solid rgba(217, 181, 106, 0.32);
 }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 .frame .inner { overflow: hidden; }
@@ -75,20 +148,27 @@ figure.seen .inner img, figure:hover .inner img { filter: none; opacity: 1; }
 .frame:hover img { transform: scale(1.03); }
 .featured .spot {
   position: absolute; inset: -40% -20% auto; height: 160%; pointer-events: none;
-  background: radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 226, 176, 0.10), transparent 70%);
+  background: radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 226, 176, 0.16), transparent 70%);
 }
-.featured-label { text-align: center; margin-top: 2.2em; }
-.featured-label .fm { font-family: var(--font-hand); color: var(--gold); font-size: 1.2rem; letter-spacing: 0.24em; text-indent: 0.24em; opacity: 0.9; }
-.featured-label .t { font-size: 1.3rem; letter-spacing: 0.2em; margin-top: 0.7em; }
+.featured-label { text-align: center; margin-top: 2.8em; }
+.featured-label .plate-no {
+  color: var(--faint); font-size: 0.66rem;
+  letter-spacing: 0.5em; text-indent: 0.5em; margin-bottom: 1.8em;
+}
+.featured-label .fm { font-family: var(--font-hand); color: var(--gold); font-size: 1.25rem; letter-spacing: 0.28em; text-indent: 0.28em; opacity: 0.92; }
+.featured-label .t { font-size: 1.25rem; font-weight: 400; letter-spacing: 0.3em; text-indent: 0.3em; margin-top: 0.9em; }
 
 /* ================= 展签分组 ================= */
 .group-label {
-  display: flex; align-items: center; gap: 1.6em; margin: 11vh 0 3.4vh;
-  font-family: var(--font-hand); font-size: 2rem; color: var(--gold); letter-spacing: 0.4em;
+  display: flex; align-items: center; gap: 1.8em; margin: 12vh 0 4.5vh;
 }
-.group-label .en { font-family: var(--font-body); font-size: 0.75rem; color: var(--faint); letter-spacing: 0.3em; margin-top: 0.3em; }
+.group-label .gcol { display: flex; flex-direction: column; gap: 1em; }
+.group-label .no { font-family: var(--font-body); font-size: 0.66rem; color: var(--faint); letter-spacing: 0.5em; }
+.group-label .name {
+  font-family: var(--font-body); font-weight: 200;
+  font-size: clamp(1.4rem, 3vw, 1.8rem); color: var(--gold); letter-spacing: 0.3em;
+}
 .group-label .line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-soft), transparent); }
-.group-label .gcol { display: flex; flex-direction: column; }
 
 /* 漂浮的呓语 */
 .drift-line {
@@ -109,21 +189,23 @@ figure {
   animation: rise 1s ease both; animation-delay: var(--d, 0s);
 }
 .frame-small {
-  background: linear-gradient(160deg, rgba(22, 30, 60, 0.6), rgba(11, 15, 34, 0.8));
-  border: 1px solid var(--hairline); padding: 0.55em;
+  position: relative;
+  background: linear-gradient(160deg, rgba(40, 31, 15, 0.62), rgba(24, 18, 9, 0.82));
+  border: 1px solid rgba(217, 181, 106, 0.18); padding: 0.85em;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
   transition: border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
 }
 figure:hover .frame-small {
-  border-color: rgba(201, 169, 97, 0.45);
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5), 0 0 44px rgba(42, 92, 216, 0.18);
+  border-color: rgba(217, 181, 106, 0.55);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55), 0 0 44px rgba(212, 175, 94, 0.22);
   transform: translateY(-3px);
 }
 .frame-small .inner { overflow: hidden; }
 figure:hover .frame-small img { transform: scale(1.035); }
 
 /* 展签：一句呓语 + 画名 */
-.label { padding: 1.1em 0.4em 0.2em; }
+.label { padding: 1.3em 0.5em 0.3em; }
+.label .no { display: block; color: var(--faint); font-size: 0.62rem; letter-spacing: 0.42em; margin-bottom: 1em; }
 .label .fm {
   display: block; font-family: var(--font-hand);
   color: var(--dim); font-size: 1.15rem; letter-spacing: 0.14em; opacity: 0.85;
@@ -137,21 +219,21 @@ figure:hover .label .fm { color: var(--gold); opacity: 1; }
 /* ================= 灯箱 ================= */
 #lightbox {
   position: fixed; inset: 0; z-index: 30; display: none;
-  background: rgba(4, 6, 16, 0.95); backdrop-filter: blur(8px);
+  background: rgba(8, 6, 2, 0.95); backdrop-filter: blur(8px);
   flex-direction: column; align-items: center; justify-content: center;
   padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-right, 0px));
 }
 #lightbox.open { display: flex; animation: lb-in 0.35s ease; }
 @keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
 .lb-stage {
-  padding: 0.9em; background: rgba(16, 22, 46, 0.6);
-  border: 1px solid rgba(201, 169, 97, 0.35); border-radius: 2px;
+  padding: 0.9em; background: rgba(34, 26, 12, 0.65);
+  border: 1px solid rgba(212, 175, 94, 0.4); border-radius: 2px;
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
 }
 #lb-img { max-width: min(88vw, 62em); max-height: 72vh; display: block; }
 #lb-cap { text-align: center; margin-top: 1.8em; }
 #lb-cap .no { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.4em; text-indent: 0.4em; }
-#lb-cap .t { font-size: 1.25rem; letter-spacing: 0.18em; margin-top: 0.6em; }
+#lb-cap .t { font-size: 1.3rem; letter-spacing: 0.26em; text-indent: 0.26em; margin-top: 0.7em; }
 #lb-cap .a { color: var(--dim); font-size: 0.88rem; margin-top: 0.5em; letter-spacing: 0.1em; }
 #lb-cap .s { color: var(--faint); font-size: 0.72rem; margin-top: 0.6em; letter-spacing: 0.1em; }
 .nav-btn {
@@ -160,7 +242,7 @@ figure:hover .label .fm { color: var(--gold); opacity: 1; }
   font-size: 1.5rem; width: 3em; height: 3em; border-radius: 50%; cursor: pointer;
   transition: border-color 0.3s, color 0.3s, background 0.3s;
 }
-.nav-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201, 169, 97, 0.06); }
+.nav-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 94, 0.08); }
 #lb-prev { left: max(14px, env(safe-area-inset-left, 0px)); }
 #lb-next { right: max(14px, env(safe-area-inset-right, 0px)); }
 #lb-close {
@@ -183,12 +265,17 @@ figure:hover .label .fm { color: var(--gold); opacity: 1; }
 
 /* ================= 页脚 ================= */
 footer {
-  margin-top: 12vh; border-top: 1px solid var(--hairline); padding-top: 2.6em;
+  position: relative; margin-top: 14vh; border-top: 1px solid var(--hairline); padding-top: 3.2em;
   display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5em; flex-wrap: wrap;
 }
-footer .credit { color: var(--faint); font-size: 0.75rem; letter-spacing: 0.18em; line-height: 2.2; }
+footer::before {
+  content: ""; position: absolute; top: -3px; left: 50%;
+  width: 5px; height: 5px; transform: translateX(-50%) rotate(45deg);
+  background: var(--gold-deep);
+}
+footer .credit { color: var(--faint); font-size: 0.72rem; letter-spacing: 0.24em; line-height: 2.4; }
 .seal {
-  writing-mode: vertical-rl; font-family: var(--font-hand);
+  writing-mode: vertical-rl; text-orientation: upright; font-family: var(--font-hand);
   font-size: 1.35rem; line-height: 1; letter-spacing: 0.14em;
   color: #f3e9da; background: var(--seal); padding: 0.55em 0.4em;
   border-radius: 3px; box-shadow: 0 0 22px rgba(160, 44, 34, 0.4), inset 0 0 8px rgba(60, 12, 8, 0.55);
@@ -201,88 +288,92 @@ footer .credit { color: var(--faint); font-size: 0.75rem; letter-spacing: 0.18em
 }
 </style>
 
+<div class="rays" aria-hidden="true"></div>
 <canvas id="air" aria-hidden="true"></canvas>
 <div id="flight" aria-hidden="true"></div>
 
 <div class="page">
 
   <header>
-    <h1>幻</h1>
-    <p class="sub">蝶掠过光 · 梦未醒</p>
+    <p class="eyebrow">一座私人的小圣堂<br><span class="en">A PRIVATE LITTLE CHAPEL</span></p>
+    <h1>神之域</h1>
+    <p class="h1-en">REALM OF THE GODS</p>
     <div class="rule"></div>
+    <p class="sub">蝶掠过光 · 梦未醒<span class="en">A butterfly skims the light · the dream not yet awake</span></p>
   </header>
 
   <!-- 主展品 -->
   <div class="featured">
-    <figure class="frame" data-cap="圣母与圣子|提香 Titian，约 1508 · 布面油画|大都会艺术博物馆 Open Access · 公有领域">
+    <figure class="frame" data-cap="圣母与圣子 · Madonna and Child|提香 Titian，约 1508 · 布面油画 Oil on canvas|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
       <div class="spot"></div>
-      <div class="inner"><img src="images/titian-madonna.jpg" alt="圣母与圣子，提香"></div>
+      <div class="inner"><img src="images/titian-madonna.jpg" alt="圣母与圣子，提香 · Madonna and Child, Titian"></div>
     </figure>
     <div class="featured-label">
-      <div class="fm">光从上面落下来</div>
-      <div class="t">圣母与圣子</div>
+      <div class="plate-no">图版 壹 · 主龛<span class="en">PLATE I · THE HIGH ALTAR</span></div>
+      <div class="fm">光从上面落下来<span class="en">Light falls from above</span></div>
+      <div class="t">圣母与圣子<span class="en">Madonna and Child</span></div>
     </div>
   </div>
 
-  <p class="drift-line">她低眉的时候 · 蓝正漫过窗台</p>
+  <p class="drift-line">她低眉的时候 · 蓝正漫过窗台<span class="en">As she lowers her gaze, blue spills over the sill</span></p>
 
-  <div class="group-label"><span class="gcol"><span>她</span><span class="en">坐在光的中央</span></span><span class="line"></span></div>
+  <div class="group-label"><span class="gcol"><span class="no">第壹室 · GALLERY I</span><span class="name">她 · 坐在光的中央</span><span class="name-en">She · seated at the center of the light</span></span><span class="line"></span></div>
   <div class="masonry">
-    <figure style="--d:.05s" data-cap="圣母与圣子|Vincenzo Foppa（芬佐·福帕），约 1480|大都会艺术博物馆 Open Access · 公有领域">
-      <div class="frame-small"><div class="inner"><img src="images/foppa-madonna.jpg" loading="lazy" alt="圣母与圣子，芬佐·福帕"></div></div>
-      <div class="label"><span class="fm">金子还没有褪色</span><div class="t">圣母与子</div></div>
+    <figure style="--d:.05s" data-cap="圣母与子 · Madonna and Child|Vincenzo Foppa（芬佐·福帕），约 1480|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
+      <div class="frame-small"><div class="inner"><img src="images/foppa-madonna.jpg" loading="lazy" alt="圣母与子，芬佐·福帕 · Madonna and Child, Foppa"></div></div>
+      <div class="label"><span class="no">图版 贰 · PLATE II</span><span class="fm">金子还没有褪色<span class="en">The gold has not yet faded</span></span><div class="t">圣母与子<span class="en">Madonna and Child</span></div></div>
     </figure>
-    <figure style="--d:.15s" data-cap="圣母与圣子|Bachiacca（巴基亚卡），约 1520 年代|大都会艺术博物馆 Open Access · 公有领域">
-      <div class="frame-small"><div class="inner"><img src="images/bachiacca-madonna.jpg" loading="lazy" alt="圣母与圣子，巴基亚卡"></div></div>
-      <div class="label"><span class="fm">他睡在她的影子里</span><div class="t">圣母与子</div></div>
+    <figure style="--d:.15s" data-cap="圣母与子 · Madonna and Child|Bachiacca（巴基亚卡），约 1520 年代|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
+      <div class="frame-small"><div class="inner"><img src="images/bachiacca-madonna.jpg" loading="lazy" alt="圣母与子，巴基亚卡 · Madonna and Child, Bachiacca"></div></div>
+      <div class="label"><span class="no">图版 叁 · PLATE III</span><span class="fm">他睡在她的影子里<span class="en">He sleeps in her shadow</span></span><div class="t">圣母与子<span class="en">Madonna and Child</span></div></div>
     </figure>
-    <figure style="--d:.1s" data-cap="圣母与圣子|抹大拉大师（Master of the Magdalen），约 1280|大都会艺术博物馆 Open Access · 公有领域">
-      <div class="frame-small"><div class="inner"><img src="images/magdalen-madonna.jpg" loading="lazy" alt="圣母与圣子，抹大拉大师"></div></div>
-      <div class="label"><span class="fm">比记忆更旧的光</span><div class="t">圣母与子</div></div>
+    <figure style="--d:.1s" data-cap="圣母与子 · Madonna and Child|抹大拉大师 Master of the Magdalen，约 1280|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
+      <div class="frame-small"><div class="inner"><img src="images/magdalen-madonna.jpg" loading="lazy" alt="圣母与子，抹大拉大师 · Madonna and Child, Master of the Magdalen"></div></div>
+      <div class="label"><span class="no">图版 肆 · PLATE IV</span><span class="fm">比记忆更旧的光<span class="en">A light older than memory</span></span><div class="t">圣母与子<span class="en">Madonna and Child</span></div></div>
     </figure>
   </div>
 
-  <p class="drift-line">花不知道自己开在谁的梦里</p>
+  <p class="drift-line">花不知道自己开在谁的梦里<span class="en">The flower never knows whose dream it blooms in</span></p>
 
-  <div class="group-label"><span class="gcol"><span>梦</span><span class="en">在蓝的边界</span></span><span class="line"></span></div>
+  <div class="group-label"><span class="gcol"><span class="no">第贰室 · GALLERY II</span><span class="name">梦 · 在蓝的边界</span><span class="name-en">Dream · at the edge of blue</span></span><span class="line"></span></div>
   <div class="masonry">
-    <figure style="--d:.05s" data-cap="阿波罗战车|奥迪隆·雷东（Odilon Redon），1905–16|大都会艺术博物馆 Open Access · 公有领域">
-      <div class="frame-small"><div class="inner"><img src="images/redon-apollo.jpg" loading="lazy" alt="阿波罗战车，雷东"></div></div>
-      <div class="label"><span class="fm">马车碾过云的背面</span><div class="t">阿波罗战车</div></div>
+    <figure style="--d:.05s" data-cap="阿波罗战车 · The Chariot of Apollo|奥迪隆·雷东 Odilon Redon，1905–16|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
+      <div class="frame-small"><div class="inner"><img src="images/redon-apollo.jpg" loading="lazy" alt="阿波罗战车，雷东 · The Chariot of Apollo, Redon"></div></div>
+      <div class="label"><span class="no">图版 伍 · PLATE V</span><span class="fm">马车碾过云的背面<span class="en">The chariot rolls across the far side of the clouds</span></span><div class="t">阿波罗战车<span class="en">The Chariot of Apollo</span></div></div>
     </figure>
-    <figure style="--d:.05s" data-cap="伊特鲁里亚花瓶与花|奥迪隆·雷东，1900–1910|大都会艺术博物馆 Open Access · 公有领域">
-      <div class="frame-small"><div class="inner"><img src="images/redon-vase.jpg" loading="lazy" alt="伊特鲁里亚花瓶与花，雷东"></div></div>
-      <div class="label"><span class="fm">水记住了花的形状</span><div class="t">伊特鲁里亚花瓶与花</div></div>
+    <figure style="--d:.05s" data-cap="伊特鲁里亚花瓶与花 · Flowers in an Etruscan Vase|奥迪隆·雷东 Odilon Redon，1900–1910|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
+      <div class="frame-small"><div class="inner"><img src="images/redon-vase.jpg" loading="lazy" alt="伊特鲁里亚花瓶与花，雷东 · Flowers in an Etruscan Vase, Redon"></div></div>
+      <div class="label"><span class="no">图版 陆 · PLATE VI</span><span class="fm">水记住了花的形状<span class="en">Water remembers the shape of flowers</span></span><div class="t">伊特鲁里亚花瓶与花<span class="en">Flowers in an Etruscan Vase</span></div></div>
     </figure>
-    <figure style="--d:.15s" data-cap="中国花瓶中的花束|奥迪隆·雷东，约 1912–14|大都会艺术博物馆 Open Access · 公有领域">
-      <div class="frame-small"><div class="inner"><img src="images/redon-bouquet.jpg" loading="lazy" alt="中国花瓶中的花束，雷东"></div></div>
-      <div class="label"><span class="fm">香气是旧的</span><div class="t">中国花瓶中的花束</div></div>
+    <figure style="--d:.15s" data-cap="中国花瓶中的花束 · Bouquet in a Chinese Vase|奥迪隆·雷东 Odilon Redon，约 1912–14|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
+      <div class="frame-small"><div class="inner"><img src="images/redon-bouquet.jpg" loading="lazy" alt="中国花瓶中的花束，雷东 · Bouquet in a Chinese Vase, Redon"></div></div>
+      <div class="label"><span class="no">图版 柒 · PLATE VII</span><span class="fm">香气是旧的<span class="en">The fragrance is old</span></span><div class="t">中国花瓶中的花束<span class="en">Bouquet in a Chinese Vase</span></div></div>
     </figure>
-    <figure style="--d:.1s" data-cap="阿蒂尔·丰坦夫人像（色粉笔）|奥迪隆·雷东，1901|大都会艺术博物馆 Open Access · 公有领域">
-      <div class="frame-small"><div class="inner"><img src="images/redon-madame.jpg" loading="lazy" alt="阿蒂尔·丰坦夫人像，雷东"></div></div>
-      <div class="label"><span class="fm">转身之前的一秒</span><div class="t">丰坦夫人像</div></div>
+    <figure style="--d:.1s" data-cap="阿蒂尔·丰坦夫人像（色粉笔） · Madame Arthur Fontaine|奥迪隆·雷东 Odilon Redon，1901|大都会艺术博物馆 Open Access · 公有领域 Public Domain">
+      <div class="frame-small"><div class="inner"><img src="images/redon-madame.jpg" loading="lazy" alt="阿蒂尔·丰坦夫人像，雷东 · Madame Arthur Fontaine, Redon"></div></div>
+      <div class="label"><span class="no">图版 捌 · PLATE VIII</span><span class="fm">转身之前的一秒<span class="en">The second before she turns</span></span><div class="t">丰坦夫人像<span class="en">Madame Arthur Fontaine</span></div></div>
     </figure>
   </div>
 
-  <p class="drift-line">醒来时 · 指尖还有一点凉</p>
+  <p class="drift-line">醒来时 · 指尖还有一点凉<span class="en">Waking, a little cold lingers at the fingertips</span></p>
 
   <footer>
     <p class="credit">
-      图片来源：大都会艺术博物馆 Open Access（The Metropolitan Museum of Art），公有领域 CC0<br>
-      蓝蝶为代码绘制 · 幻 · 冷皆 制作
+      图片来源：大都会艺术博物馆 Open Access（The Metropolitan Museum of Art），公有领域 Public Domain CC0<br>
+      蓝蝶为代码绘制 · 神之域 · REALM OF THE GODS · lexi 制作
     </p>
-    <div class="seal">冷皆</div>
+    <div class="seal">lexi</div>
   </footer>
 </div>
 
-<div id="lightbox" role="dialog" aria-label="图片查看">
-  <button id="lb-close">关 闭</button>
-  <button id="lb-prev" class="nav-btn" aria-label="上一张">‹</button>
+<div id="lightbox" role="dialog" aria-label="图片查看 · Image Viewer">
+  <button id="lb-close">关闭 · CLOSE</button>
+  <button id="lb-prev" class="nav-btn" aria-label="上一张 · Previous">‹</button>
   <div class="lb-stage"><img id="lb-img" src="" alt=""></div>
   <div id="lb-cap">
     <div class="no"></div><div class="t"></div><div class="a"></div><div class="s"></div>
   </div>
-  <button id="lb-next" class="nav-btn" aria-label="下一张">›</button>
+  <button id="lb-next" class="nav-btn" aria-label="下一张 · Next">›</button>
 </div>
 
 <script>
@@ -305,7 +396,9 @@ footer .credit { color: var(--faint); font-size: 0.75rem; letter-spacing: 0.18em
     var parts = figs[cur].getAttribute("data-cap").split("|");
     lbImg.src = figs[cur].querySelector("img").src;
     lbImg.alt = parts[0];
-    capNo.textContent = (cur + 1 < 10 ? "0" : "") + (cur + 1) + " / " + figs.length;
+    var CN = ["壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖", "拾"];
+    var RN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+    capNo.textContent = "图版 " + (CN[cur] || (cur + 1)) + " · 凡" + (CN[figs.length - 1] || figs.length) + "幅 · PLATE " + (RN[cur] || (cur + 1)) + " OF " + (RN[figs.length - 1] || figs.length);
     capT.textContent = parts[0];
     capA.textContent = parts[1];
     capS.textContent = parts[2];
@@ -396,7 +489,7 @@ footer .credit { color: var(--faint); font-size: 0.75rem; letter-spacing: 0.18em
       var py = (pl.fy + Math.cos(t * pl.w * 0.5 + pl.ph) * 0.03) * innerHeight;
       var pr = pl.r * Math.max(innerWidth, innerHeight) * breathe;
       var g = ctx.createRadialGradient(px, py, 0, px, py, pr);
-      g.addColorStop(0, "rgba(196,168,120," + (0.05 * breathe).toFixed(3) + ")");
+      g.addColorStop(0, "rgba(196,168,120," + (0.075 * breathe).toFixed(3) + ")");
       g.addColorStop(1, "rgba(196,168,120,0)");
       ctx.fillStyle = g;
       ctx.fillRect(px - pr, py - pr, pr * 2, pr * 2);
